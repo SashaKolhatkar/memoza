@@ -5,9 +5,9 @@ A gentle, adaptive planning workspace for real days. Memoza helps you choose one
 > Memoza is a productivity and planning tool. It is not a medical, diagnostic, or clinical service. It does not make claims about your health or behaviour.
 
 ## Live deployment
-- Frontend: https://dayflow-phi-hazel.vercel.app
+- Frontend: https://memoza-phi-hazel.vercel.app
 - API health: https://dayflow-api-f1lb.onrender.com/api/health
-- Source: https://github.com/SashaKolhatkar/dayflow
+- Source: https://github.com/SashaKolhatkar/memoza
 
 ## What is included
 
@@ -141,10 +141,10 @@ The React app is a static Vite build on Vercel; the FastAPI service runs on Rend
 
 ### 1. Push the project to GitHub
 
-The project is already pushed to `https://github.com/SashaKolhatkar/dayflow` (public, branch `main`). To get it on another machine:
+The project is already pushed to `https://github.com/SashaKolhatkar/memoza` (public, branch `main`). To get it on another machine:
 
 ```bash
-git clone https://github.com/SashaKolhatkar/dayflow.git
+git clone https://github.com/SashaKolhatkar/memoza.git
 cd memoza
 ```
 
