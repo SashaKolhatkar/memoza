@@ -154,15 +154,16 @@ To point a different local copy at your own repo instead, use `git remote set-ur
 
 ### 2. Render (API + database)
 
-1. **New → Blueprint** and select the repo. `render.yaml` creates the API service and a free PostgreSQL database.
-2. In the service **Environment** tab, set `CORS_ORIGINS` and `FRONTEND_URL` to your real Vercel URL, e.g. `https://memoza-abc123.vercel.app`. `ALLOWED_HOSTS` defaults to `memoza-api.onrender.com`; Render's own `RENDER_EXTERNAL_HOSTNAME` is also allowed automatically.
-3. Reveal `SECRET_KEY`, `TRAFFIC_SALT`, and `OWNER_SETUP_TOKEN` from the dashboard and store them safely. `OWNER_SETUP_TOKEN` is needed once to create the reserved owner account. The normal Settings form intentionally has no owner-token field; create the owner account once with the API:
+1. **New → Blueprint** and select the repo. `render.yaml` creates a free PostgreSQL database. The existing service is named `dayflow-db` to preserve the database; Render does not allow renaming blueprint-managed services.
+2. **New → Web Service** from the same repo to create the API. Use Python 3, branch `main`, build command `pip install -r backend/requirements.txt`, start command `cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT`, and health check path `/api/health`. The deployed service is named `memoza-api`; it is managed separately from the Blueprint, so do not re-add it to `render.yaml`.
+3. In the API service **Environment** tab, set `CORS_ORIGINS` and `FRONTEND_URL` to your real Vercel URL, e.g. `https://memoza-abc123.vercel.app`. Also set `ENVIRONMENT=production`, `PYTHON_VERSION=3.11.9`, `DEMO_SEED_ON_STARTUP=false`, `MODEL_PATH=/tmp/duration_model.joblib`, and `DATABASE_URL` from the Blueprint database. `ALLOWED_HOSTS` is optional because Render's own `RENDER_EXTERNAL_HOSTNAME` is allowed automatically.
+4. Generate strong values for `SECRET_KEY`, `TRAFFIC_SALT`, and `OWNER_SETUP_TOKEN` (Render's **Generate** button is fine), reveal them from the dashboard, and store them safely. `OWNER_SETUP_TOKEN` is needed once to create the reserved owner account. The normal Settings form intentionally has no owner-token field; create the owner account once with the API:
    ```bash
    curl -X POST https://<your-service>.onrender.com/api/auth/register \
      -H 'Content-Type: application/json' \
      -d '{"name":"Owner","email":"sashakolhatkar28@gmail.com","password":"<a strong password>","owner_setup_token":"<the revealed token>"}'
    ```
-4. Confirm `https://<your-service>.onrender.com/api/health` returns `{"status":"ok","app":"Memoza"}`.
+5. Confirm `https://<your-service>.onrender.com/api/health` returns `{"status":"ok","app":"Memoza"}`.
 
 Render supplies `DATABASE_URL` as `postgres://...`; the backend normalises it to `postgresql+psycopg://`. The free plan sleeps idle services, so the first request after a pause may take a few seconds.
 

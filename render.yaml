@@ -1,49 +1,12 @@
-# Render Blueprint for the Memoza API.
-# In Render: New > Blueprint > point at this repository.
+# Render Blueprint for Memoza's database.
+# The API web service (memoza-api) is managed separately in Render: its name and
+# hostname were changed after the original Blueprint deployment, so re-adding it
+# here could create a duplicate service. Blueprint Auto Sync is intentionally off.
 # The React frontend is deployed separately on Vercel (see frontend/vercel.json).
 
-services:
-  - type: web
-    name: memoza-api
-    runtime: python
-    region: oregon
-    plan: free
-    buildCommand: pip install -r backend/requirements.txt
-    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    healthCheckPath: /api/health
-    envVars:
-      - key: ENVIRONMENT
-        value: production
-      - key: PYTHON_VERSION
-        value: "3.11.9"
-      # Render generates strong random values; you can reveal them in the dashboard.
-      # OWNER_SETUP_TOKEN is needed once, to create the reserved owner account.
-      - key: SECRET_KEY
-        generateValue: true
-      - key: TRAFFIC_SALT
-        generateValue: true
-      - key: OWNER_SETUP_TOKEN
-        generateValue: true
-      - key: DEMO_SEED_ON_STARTUP
-        value: "false"
-      - key: MODEL_PATH
-        value: /tmp/duration_model.joblib
-      - key: CORS_ORIGINS
-        value: https://memoza-phi-hazel.vercel.app
-      - key: ALLOWED_HOSTS
-        value: memoza-api.onrender.com
-      - key: FRONTEND_URL
-        value: https://memoza-phi-hazel.vercel.app
-      # Google Calendar is optional. Set all three to enable read-only import.
-      # GOOGLE_CLIENT_ID: set in dashboard
-      # GOOGLE_CLIENT_SECRET: set in dashboard
-      # GOOGLE_REDIRECT_URI: https://memoza-api.onrender.com/api/google/callback
-      - key: DATABASE_URL
-        fromDatabase:
-          name: dayflow-db
-          property: connectionString
-
 databases:
+  # The service name, database name, and user stay as "dayflow" to preserve the
+  # existing database; Render does not allow renaming blueprint-managed services.
   - name: dayflow-db
     plan: free
     databaseName: dayflow
