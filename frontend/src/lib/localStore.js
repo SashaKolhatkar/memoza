@@ -23,7 +23,7 @@ const at = (offset, hour, minute = 0) => {
 function seed() {
   const user = {
     id: 'local-user',
-    email: 'local@dayflow.app',
+    email: 'local@memoza.app',
     name: 'Your local workspace',
     is_demo: true,
     preferences: { ...DEFAULT_PREFERENCES },

@@ -27,7 +27,7 @@ export default function Settings() {
       const url = URL.createObjectURL(blob)
       const anchor = document.createElement('a')
       anchor.href = url
-      anchor.download = `dayflow-export-${new Date().toISOString().slice(0, 10)}.json`
+      anchor.download = `memoza-export-${new Date().toISOString().slice(0, 10)}.json`
       anchor.click()
       URL.revokeObjectURL(url)
       toast('Your data export is ready.', 'gentle')
@@ -142,11 +142,11 @@ export default function Settings() {
           </div>
         </div>
         <p className="small muted" style={{ margin: '0 0 10px' }}>
-          Questions, feedback, or a kind donation? Write to the owner directly. DAYFLOW does not take payment inside the app.
+          Questions, feedback, or a kind donation? Write to the owner directly. Memoza does not take payment inside the app.
         </p>
         <div className="row-wrap">
-          <a className="btn btn-sm btn-primary" href={`mailto:${SUPPORT_EMAIL}?subject=DAYFLOW%20feedback`}><Mail size={14} /> Email the owner</a>
-          <a className="btn btn-sm btn-soft" href={`mailto:${SUPPORT_EMAIL}?subject=Supporting%20DAYFLOW`}><Heart size={14} /> Support the owner</a>
+          <a className="btn btn-sm btn-primary" href={`mailto:${SUPPORT_EMAIL}?subject=Memoza%20feedback`}><Mail size={14} /> Email the owner</a>
+          <a className="btn btn-sm btn-soft" href={`mailto:${SUPPORT_EMAIL}?subject=Supporting%20Memoza`}><Heart size={14} /> Support the owner</a>
         </div>
         <div className="tiny muted" style={{ marginTop: 8 }}>Owner email: {SUPPORT_EMAIL}</div>
       </section>
@@ -164,7 +164,7 @@ export default function Settings() {
           </section>
           <section className="panel flat">
             <div className="row"><ShieldCheck size={19} color="var(--sage-deep)" /><strong className="small">A note about privacy</strong></div>
-            <p className="small" style={{ margin: '7px 0 0' }}>DAYFLOW is a planning tool, not a medical service. It does not diagnose, treat, or make clinical predictions. Demo content is always labelled as sample data.</p>
+            <p className="small" style={{ margin: '7px 0 0' }}>Memoza is a planning tool, not a medical service. It does not diagnose, treat, or make clinical predictions. Demo content is always labelled as sample data.</p>
           </section>
         </div>
       </details>

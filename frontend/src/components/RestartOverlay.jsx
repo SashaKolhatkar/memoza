@@ -359,7 +359,7 @@ export default function RestartOverlay() {
   if (!restartOpen) return null
   return createPortal(
     <div className="overlay-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) close() }}>
-      <div className="restart-modal" role="dialog" aria-modal="true" aria-label="Restart DAYFLOW">
+      <div className="restart-modal" role="dialog" aria-modal="true" aria-label="Restart Memoza">
         <button className="icon-btn plain restart-close" onClick={close} aria-label="Close restart screen"><X size={18} /></button>
         {step === 'menu' && menu()}
         {step === 'rebuild' && rebuild()}

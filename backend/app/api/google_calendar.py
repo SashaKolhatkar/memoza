@@ -1,6 +1,6 @@
 """Optional, read-only Google Calendar import.
 
-DAYFLOW never writes to a Google Calendar. Connection is only offered when
+Memoza never writes to a Google Calendar. Connection is only offered when
 OAuth credentials are configured; tokens are kept per user in the local
 database and are removed with the account.
 """
@@ -68,7 +68,7 @@ def _status(db: Session, user: User) -> dict:
     elif connected:
         message = f"Connected as {row.email}. Only events are read; nothing is written back."
     else:
-        message = "Connect to bring upcoming Google events into DAYFLOW."
+        message = "Connect to bring upcoming Google events into Memoza."
     return {
         "configured": _configured(),
         "connected": connected,
@@ -197,7 +197,7 @@ def disconnect(db: Session = Depends(get_db), user: User = Depends(get_current_u
         _revoke(row)
         db.delete(row)
         db.commit()
-    return {"message": "Google Calendar connection removed. DAYFLOW events were left untouched."}
+    return {"message": "Google Calendar connection removed. Memoza events were left untouched."}
 
 
 @router.post("/import")
@@ -250,5 +250,5 @@ def import_events(db: Session = Depends(get_db), user: User = Depends(get_curren
     db.commit()
     return {
         "added": added, "updated": updated, "skipped": skipped,
-        "message": f"Brought {added} new event(s) into DAYFLOW and refreshed {updated}. Your Google Calendar was not changed.",
+        "message": f"Brought {added} new event(s) into Memoza and refreshed {updated}. Your Google Calendar was not changed.",
     }

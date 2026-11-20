@@ -78,7 +78,7 @@ function Sidebar({ onResizeStart }) {
       <div className="brand">
         <div className="brand-mark"><Sparkles size={19} color="var(--lavender-deep)" /></div>
         <div>
-          <div className="brand-name">DAYFLOW</div>
+          <div className="brand-name">Memoza</div>
           <div className="brand-sub">a softer way to plan</div>
         </div>
       </div>

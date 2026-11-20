@@ -27,7 +27,7 @@ export default function App() {
       <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', textAlign: 'center' }}>
         <div>
           <div className="brand-mark" style={{ width: 56, height: 56, margin: '0 auto 14px' }}><Sparkles size={24} color="var(--lavender-deep)" /></div>
-          <h1 style={{ fontSize: 30 }}>DAYFLOW</h1>
+          <h1 style={{ fontSize: 30 }}>Memoza</h1>
           <p className="small muted">Making room for a gentler day…</p>
         </div>
       </div>

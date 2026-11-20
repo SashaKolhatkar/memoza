@@ -33,7 +33,7 @@ export const AUDIO_PRESETS = [
   },
 ]
 
-// YouTube embeds that were verified to allow playback inside DAYFLOW.
+// YouTube embeds that were verified to allow playback inside Memoza.
 export const YOUTUBE_PRESETS = [
   { id: 'KNdjMEcG0mw', label: 'Soft ambient', note: '10-minute relaxing timer' },
   { id: 'ru4hdcMmlwQ', label: 'Pure waves', note: '10-minute meditation music' },

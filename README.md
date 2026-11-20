@@ -1,8 +1,8 @@
-# DAYFLOW
+# Memoza
 
-A gentle, adaptive planning workspace for real days. DAYFLOW helps you choose one next action, shape a realistic schedule, capture distracting thoughts, and restart without losing anything you have already done.
+A gentle, adaptive planning workspace for real days. Memoza helps you choose one next action, shape a realistic schedule, capture distracting thoughts, and restart without losing anything you have already done.
 
-> DAYFLOW is a productivity and planning tool. It is not a medical, diagnostic, or clinical service. It does not make claims about your health or behaviour.
+> Memoza is a productivity and planning tool. It is not a medical, diagnostic, or clinical service. It does not make claims about your health or behaviour.
 
 ## Live deployment
 - Frontend: https://dayflow-phi-hazel.vercel.app
@@ -28,9 +28,9 @@ A gentle, adaptive planning workspace for real days. DAYFLOW helps you choose on
 - **Focus Room** — one clock for focus, breaks, estimates, reminders, recent sessions, and distraction parking. Session length can be locked; "Open session · counts up from zero" is a stopwatch with no goal or countdown, and time spent can be logged manually without starting a clock. A finished countdown focus block rolls into a short break and stays open until you finish or pause. Optional background music is off by default. Choose **Direct audio** (three calm, CC-BY 3.0 tracks played without embed limits) or **YouTube** (verified embeddable presets or a pasted link) in Focus or Settings. Playback follows the session's pause/resume and stops when the session closes. Direct audio is the default because some YouTube videos disallow embedding; YouTube videos and ads remain controlled by YouTube.
 - **Progress + Insights** — one daily/monthly dashboard with gentle "quests", recorded-only charts for focus time and finished tasks, planned-vs-actual and category patterns from your history, and suggestions built only from what you actually did. The old `/insights` link now opens Progress.
 - **Share my stats** — copies or opens a short, recorded-only summary for the period you are viewing. Nothing private is included.
-- **Contact & support the owner** — a small panel in Settings to email `sashakolhatkar28@gmail.com` for questions or feedback, or to arrange a donation to the site owner. DAYFLOW does not take payment in the app.
+- **Contact & support the owner** — a small panel in Settings to email `sashakolhatkar28@gmail.com` for questions or feedback, or to arrange a donation to the site owner. Memoza does not take payment in the app.
 - **Owner traffic dashboard** — the owner account sees a `/owner` page with page views, unique visitors, visits, daily views, pages, devices, referrers and recent views. Non-owners get no navigation item and a 403 from the API. Visitor/session IDs are hashed; no IP address, name, task text or raw user agent is stored.
-- **Chibi companions** — four small pastel friends (Pip, Milo, Lumi and Nori) on Progress, the floating Buddy chat and the Restart screen. Pick a character and colour in Settings or Progress, rename your buddy, or leave it blank to keep the default. Buddy uses your account name (or a name you tell it), your recorded DAYFLOW data, and chat notes kept only in this browser to shape gentle replies. It is transparent rule-based learning — no cloud, no mood tracking, no clinical claims — and you can press **Forget** to clear everything it learned. Buddy can be dragged anywhere on screen so it never sits on top of the timer. Progress charts still come only from what you recorded.
+- **Chibi companions** — four small pastel friends (Pip, Milo, Lumi and Nori) on Progress, the floating Buddy chat and the Restart screen. Pick a character and colour in Settings or Progress, rename your buddy, or leave it blank to keep the default. Buddy uses your account name (or a name you tell it), your recorded Memoza data, and chat notes kept only in this browser to shape gentle replies. It is transparent rule-based learning — no cloud, no mood tracking, no clinical claims — and you can press **Forget** to clear everything it learned. Buddy can be dragged anywhere on screen so it never sits on top of the timer. Progress charts still come only from what you recorded.
 - **Small celebrations** — 20 distinct, quick animations for finished tasks, saved sessions, quests, levels, routines, breaks and other recorded milestones. They respect reduced-motion settings and never invent achievements.
 - **Google Calendar (optional)** — read-only import of upcoming events from the Calendar page. Nothing is written back to Google.
 - **Global Restart Button** — available on every page, including the Focus Room.
@@ -51,7 +51,7 @@ Nothing is deleted. Unfinished tasks are not moved automatically. The rest of yo
 ## Architecture
 
 ```
-dayflow/
+memoza/
 ├── backend/
 │   ├── app/
 │   │   ├── api/          # FastAPI routers (auth, tasks, capture, planning, focus, insights)
@@ -107,10 +107,10 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 8010
 
 The API is now at `http://127.0.0.1:8010`. Interactive docs are at `/docs`; health is at `/api/health`.
 
-DAYFLOW uses port **8010** so it does not collide with other local services that commonly occupy port 8000. If you need a different port, set `VITE_API_TARGET` in `frontend/.env` to match.
+Memoza uses port **8010** so it does not collide with other local services that commonly occupy port 8000. If you need a different port, set `VITE_API_TARGET` in `frontend/.env` to match.
 
 On startup, a clearly labelled demo workspace is created if it does not exist:
-- Email: `demo@dayflow.local`
+- Email: `demo@memoza.local`
 - Password: `demo1234`
 
 ### 2. Frontend
@@ -145,7 +145,7 @@ The project is already pushed to `https://github.com/SashaKolhatkar/dayflow` (pu
 
 ```bash
 git clone https://github.com/SashaKolhatkar/dayflow.git
-cd dayflow
+cd memoza
 ```
 
 To point a different local copy at your own repo instead, use `git remote set-url origin <your-url>` and `git push -u origin main`.
@@ -162,7 +162,7 @@ To point a different local copy at your own repo instead, use `git remote set-ur
      -H 'Content-Type: application/json' \
      -d '{"name":"Owner","email":"sashakolhatkar28@gmail.com","password":"<a strong password>","owner_setup_token":"<the revealed token>"}'
    ```
-4. Confirm `https://<your-service>.onrender.com/api/health` returns `{"status":"ok","app":"DAYFLOW"}`.
+4. Confirm `https://<your-service>.onrender.com/api/health` returns `{"status":"ok","app":"Memoza"}`.
 
 Render supplies `DATABASE_URL` as `postgres://...`; the backend normalises it to `postgresql+psycopg://`. The free plan sleeps idle services, so the first request after a pause may take a few seconds.
 
@@ -181,10 +181,10 @@ Add `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` (`http
 ### 5. VS Code
 
 Open this folder in VS Code. Use **Terminal → Run Task…**:
-- `Dayflow: Dev (both)` — API + frontend locally
-- `Dayflow: Build frontend` — production build
-- `Dayflow: Smoke test` — API checks against `127.0.0.1:8010`
-- `Dayflow: Verify all` — build then smoke
+- `Memoza: Dev (both)` — API + frontend locally
+- `Memoza: Build frontend` — production build
+- `Memoza: Smoke test` — API checks against `127.0.0.1:8010`
+- `Memoza: Verify all` — build then smoke
 
 **F5** starts the API under the debugger. VS Code will offer the extensions listed in `.vscode/extensions.json`. The npm tasks use the bundled `tools/node-v26.13.1-win-x64` on this machine.
 
@@ -200,7 +200,7 @@ Important backend settings:
 - `ALLOWED_HOSTS` — comma-separated host names accepted by the API; set this for your deployment domain.
 - `DEMO_SEED_ON_STARTUP` — set to `false` to disable automatic demo data.
 - `MODEL_PATH` — where a trained duration model is stored.
-- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` — optional Google OAuth credentials. With all three set, **Calendar → Google Calendar → Connect** appears. The redirect URI must be registered with Google and default to `http://127.0.0.1:8010/api/google/callback`. Only `calendar.readonly` is requested; imported events are copies in DAYFLOW and your Google Calendar is never modified. Tokens are encrypted in the local database and deleted/revoked with the account; OAuth uses PKCE.
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` — optional Google OAuth credentials. With all three set, **Calendar → Google Calendar → Connect** appears. The redirect URI must be registered with Google and default to `http://127.0.0.1:8010/api/google/callback`. Only `calendar.readonly` is requested; imported events are copies in Memoza and your Google Calendar is never modified. Tokens are encrypted in the local database and deleted/revoked with the account; OAuth uses PKCE.
 - `FRONTEND_URL` — where the OAuth callback sends you afterwards (default `http://127.0.0.1:5174`).
 - `OWNER_EMAIL` — the reserved account email for the owner traffic dashboard (default `sashakolhatkar28@gmail.com`).
 - `OWNER_SETUP_TOKEN` — a long random token required to register that reserved email. Set it in the backend environment before creating the owner account; ordinary users cannot claim the owner email.
@@ -213,7 +213,7 @@ Accounts can be created or used from **Settings → Account** (Sign in / Create 
 
 The scheduler is **rule-based first**. It considers importance, pinned/main priority, deadlines, energy fit, estimated duration, events, preparation/travel buffers, and the hours you actually have available. Every block carries a plain-language reason.
 
-A scikit-learn duration model is only trained after **20 recorded personal sessions**. Until then, predictions are explicitly labelled `rule_based`. After training, predictions are labelled `model_prediction` and show the training count and typical error. DAYFLOW never invents behavioural data and never makes clinical predictions.
+A scikit-learn duration model is only trained after **20 recorded personal sessions**. Until then, predictions are explicitly labelled `rule_based`. After training, predictions are labelled `model_prediction` and show the training count and typical error. Memoza never invents behavioural data and never makes clinical predictions.
 
 ## Data, privacy, and export
 
@@ -235,7 +235,7 @@ cd backend
 python tests/smoke.py
 ```
 
-The smoke test checks health, demo login, traffic beacon acceptance, owner-dashboard denial for non-owners, tasks, Start Assist, schedule preview/apply, restart priority/rebuild, insights, duration prediction, and data export. It targets `http://127.0.0.1:8010` by default; override with `DAYFLOW_API_BASE` if you run the backend on a different port.
+The smoke test checks health, demo login, traffic beacon acceptance, owner-dashboard denial for non-owners, tasks, Start Assist, schedule preview/apply, restart priority/rebuild, insights, duration prediction, and data export. It targets `http://127.0.0.1:8010` by default; override with `MEMOZA_API_BASE` (or the legacy `DAYFLOW_API_BASE`) if you run the backend on a different port.
 
 Frontend build check:
 

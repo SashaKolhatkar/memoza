@@ -131,13 +131,13 @@ export default function Progress() {
     const taskWord = stats.done === 1 ? 'task' : 'tasks'
     const sessionWord = stats.sessions === 1 ? 'session' : 'sessions'
     const routineWord = stats.routines === 1 ? 'routine' : 'routines'
-    return `${label} in DAYFLOW: ${stats.done} ${taskWord} finished · ${stats.sessions} focus ${sessionWord} · ${minutesLabel(stats.minutes)} in focus · ${stats.routines} ${routineWord} practised. Small steps count.`
+    return `${label} in Memoza: ${stats.done} ${taskWord} finished · ${stats.sessions} focus ${sessionWord} · ${minutesLabel(stats.minutes)} in focus · ${stats.routines} ${routineWord} practised. Small steps count.`
   }, [period, stats])
 
   const shareStats = async () => {
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'My DAYFLOW progress', text: shareText })
+        await navigator.share({ title: 'My Memoza progress', text: shareText })
         return
       }
       if (navigator.clipboard?.writeText) {
@@ -392,7 +392,7 @@ export default function Progress() {
             </div>
           ))}
         </div>
-        <div className="tiny muted" style={{ marginTop: 8 }}>Bars use only sessions and completed tasks recorded in DAYFLOW.</div>
+        <div className="tiny muted" style={{ marginTop: 8 }}>Bars use only sessions and completed tasks recorded in Memoza.</div>
       </section>
 
       {(history.length > 0 || categories.length > 0) && (

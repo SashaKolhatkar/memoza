@@ -17,7 +17,7 @@ from app.models import (
     utcnow,
 )
 
-DEMO_EMAIL = "demo@dayflow.local"
+DEMO_EMAIL = "demo@memoza.local"
 DEMO_PASSWORD = "demo1234"
 
 

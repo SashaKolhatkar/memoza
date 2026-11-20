@@ -33,7 +33,7 @@ async function request(method, path, { body, params } = {}) {
       body: body === undefined ? undefined : JSON.stringify(body),
     })
   } catch (error) {
-    throw new Error(`Cannot reach DAYFLOW API. ${error.message}`)
+    throw new Error(`Cannot reach Memoza API. ${error.message}`)
   }
   if (response.status === 204) return null
   const text = await response.text()

@@ -53,7 +53,7 @@ export default function CalendarPage() {
   const disconnectGoogle = async () => {
     try {
       const result = await api.google.disconnect()
-      setGoogle((current) => ({ ...current, connected: false, email: null, message: 'Disconnected. DAYFLOW events were left untouched.' }))
+      setGoogle((current) => ({ ...current, connected: false, email: null, message: 'Disconnected. Memoza events were left untouched.' }))
       toast(result.message, 'gentle')
     } catch (error) { toast(error.message, 'warn') }
   }

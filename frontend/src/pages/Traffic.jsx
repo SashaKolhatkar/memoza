@@ -62,7 +62,7 @@ export default function Traffic() {
         <div className="brand-mark"><ShieldCheck size={19} color="var(--sage-deep)" /></div>
         <h2>Owner only</h2>
         <p className="small muted" style={{ margin: '6px 0 0' }}>
-          Site traffic is visible only to the account set as DAYFLOW owner. If that is you, sign in with the owner email.
+          Site traffic is visible only to the account set as Memoza owner. If that is you, sign in with the owner email.
         </p>
       </section>
     )

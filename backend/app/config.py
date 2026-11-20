@@ -11,9 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 class Settings(BaseSettings):
     """Application configuration. All values can be set through environment variables."""
 
-    app_name: str = "DAYFLOW"
+    app_name: str = "Memoza"
     environment: str = "local"
-    secret_key: str = "dayflow-local-development-secret-change-in-production"
+    secret_key: str = "memoza-local-development-secret-change-in-production"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 12 * 60
     database_url: str = f"sqlite:///{BASE_DIR / 'dayflow.db'}"
@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     # Required to register that reserved email as the owner account.
     owner_setup_token: str = ""
     # Change this in deployment so stored visitor tokens cannot be reversed.
-    traffic_salt: str = "dayflow-local-traffic-salt-change-in-production"
+    traffic_salt: str = "memoza-local-traffic-salt-change-in-production"
     traffic_retention_days: int = 180
 
     model_config = SettingsConfigDict(
@@ -57,9 +57,9 @@ class Settings(BaseSettings):
         if "*" in self.allowed_host_list:
             raise ValueError("ALLOWED_HOSTS cannot be '*'.")
         if self.environment.strip().lower() != "local":
-            if self.secret_key == "dayflow-local-development-secret-change-in-production" or len(self.secret_key) < 32:
+            if self.secret_key == "memoza-local-development-secret-change-in-production" or len(self.secret_key) < 32:
                 raise ValueError("SECRET_KEY must be a long random value outside local development.")
-            if self.traffic_salt == "dayflow-local-traffic-salt-change-in-production" or len(self.traffic_salt) < 16:
+            if self.traffic_salt == "memoza-local-traffic-salt-change-in-production" or len(self.traffic_salt) < 16:
                 raise ValueError("TRAFFIC_SALT must be a long random value outside local development.")
             if not self.owner_setup_token or len(self.owner_setup_token) < 16:
                 raise ValueError("OWNER_SETUP_TOKEN must be set outside local development.")

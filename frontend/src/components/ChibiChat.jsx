@@ -44,7 +44,7 @@ function greetingFor(name, buddyName) {
     id: 'hello',
     from: 'buddy',
     mood: 'cheer',
-    text: `Hi${name ? `, ${name}` : ''}, I’m ${buddyName} — glad you’re here. I can see what DAYFLOW has recorded, and I remember what you tell me in this browser. Nothing leaves your device.`,
+    text: `Hi${name ? `, ${name}` : ''}, I’m ${buddyName} — glad you’re here. I can see what Memoza has recorded, and I remember what you tell me in this browser. Nothing leaves your device.`,
   }
 }
 
@@ -334,7 +334,7 @@ export default function ChibiChat() {
           onPointerMove={moveDrag}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
-          aria-label="Open your DAYFLOW buddy. Drag to move."
+          aria-label="Open your Memoza buddy. Drag to move."
         >
           <ChibiCompanion mood={mood} color={buddyColor} character={buddyCharacter} name={friendName} size={46} />
           <MessageCircle size={14} />

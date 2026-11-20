@@ -65,7 +65,7 @@ export function AppProvider({ children }) {
           if (saved?.sessionId) setTimer(saved)
         } catch { /* ignore malformed saved timer */ }
       } catch (error) {
-        toast(`DAYFLOW could not load your data: ${error.message}`, 'warn')
+        toast(`Memoza could not load your data: ${error.message}`, 'warn')
       } finally {
         if (active) setReady(true)
       }

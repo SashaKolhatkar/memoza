@@ -7,46 +7,46 @@
   },
   "tasks": [
     {
-      "label": "Dayflow: API",
+      "label": "Memoza: API",
       "type": "shell",
       "command": "python -m uvicorn app.main:app --host 127.0.0.1 --port 8010",
       "options": { "cwd": "${workspaceFolder}/backend" },
       "isBackground": true,
       "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "group": "dayflow" }
+      "presentation": { "reveal": "always", "panel": "dedicated", "group": "memoza" }
     },
     {
-      "label": "Dayflow: Frontend",
+      "label": "Memoza: Frontend",
       "type": "shell",
       "command": "npm run dev",
       "options": { "cwd": "${workspaceFolder}/frontend" },
       "isBackground": true,
       "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "group": "dayflow" }
+      "presentation": { "reveal": "always", "panel": "dedicated", "group": "memoza" }
     },
     {
-      "label": "Dayflow: Dev (both)",
-      "dependsOn": ["Dayflow: API", "Dayflow: Frontend"],
+      "label": "Memoza: Dev (both)",
+      "dependsOn": ["Memoza: API", "Memoza: Frontend"],
       "dependsOrder": "parallel",
       "problemMatcher": []
     },
     {
-      "label": "Dayflow: Build frontend",
+      "label": "Memoza: Build frontend",
       "type": "shell",
       "command": "npm run build",
       "options": { "cwd": "${workspaceFolder}/frontend" },
       "problemMatcher": []
     },
     {
-      "label": "Dayflow: Smoke test",
+      "label": "Memoza: Smoke test",
       "type": "shell",
       "command": "python tests/smoke.py",
       "options": { "cwd": "${workspaceFolder}/backend" },
       "problemMatcher": []
     },
     {
-      "label": "Dayflow: Verify all",
-      "dependsOn": ["Dayflow: Build frontend", "Dayflow: Smoke test"],
+      "label": "Memoza: Verify all",
+      "dependsOn": ["Memoza: Build frontend", "Memoza: Smoke test"],
       "dependsOrder": "sequence",
       "problemMatcher": []
     }

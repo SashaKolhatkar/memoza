@@ -26,7 +26,7 @@ async def lifespan(_: FastAPI):
 
 is_local = settings.environment.strip().lower() == "local"
 app = FastAPI(
-    title="DAYFLOW API",
+    title="Memoza API",
     description="Personalized adaptive productivity and executive-function planner.",
     version="1.0.0",
     lifespan=lifespan,
@@ -71,7 +71,7 @@ def health():
 
 @app.get("/", tags=["system"])
 def root():
-    result = {"name": "DAYFLOW", "health": "/api/health"}
+    result = {"name": "Memoza", "health": "/api/health"}
     if is_local:
         result["docs"] = "/docs"
     return result

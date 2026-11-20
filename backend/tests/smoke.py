@@ -5,7 +5,10 @@ import time
 
 import httpx
 
-BASE = os.environ.get("DAYFLOW_API_BASE", "http://127.0.0.1:8010")
+BASE = os.environ.get(
+    "MEMOZA_API_BASE",
+    os.environ.get("DAYFLOW_API_BASE", "http://127.0.0.1:8010"),
+)
 
 
 def main() -> None:
@@ -20,7 +23,7 @@ def main() -> None:
                 pass
             time.sleep(0.5)
         else:
-            raise AssertionError(f"DAYFLOW API did not become ready on {BASE}")
+            raise AssertionError(f"Memoza API did not become ready on {BASE}")
         assert health.status_code == 200, health.text
         print("health:", health.json())
 
