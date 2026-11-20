@@ -151,7 +151,12 @@ To point a different local copy at your own repo instead, use `git remote set-ur
 
 1. **New → Blueprint** and select the repo. `render.yaml` creates the API service and a free PostgreSQL database.
 2. In the service **Environment** tab, set `CORS_ORIGINS` and `FRONTEND_URL` to your real Vercel URL, e.g. `https://dayflow-abc123.vercel.app`. `ALLOWED_HOSTS` defaults to `dayflow-api.onrender.com`; Render's own `RENDER_EXTERNAL_HOSTNAME` is also allowed automatically.
-3. Reveal `SECRET_KEY`, `TRAFFIC_SALT`, and `OWNER_SETUP_TOKEN` from the dashboard and store them safely. `OWNER_SETUP_TOKEN` is needed once to create the reserved owner account.
+3. Reveal `SECRET_KEY`, `TRAFFIC_SALT`, and `OWNER_SETUP_TOKEN` from the dashboard and store them safely. `OWNER_SETUP_TOKEN` is needed once to create the reserved owner account. The normal Settings form intentionally has no owner-token field; create the owner account once with the API:
+   ```bash
+   curl -X POST https://<your-service>.onrender.com/api/auth/register \
+     -H 'Content-Type: application/json' \
+     -d '{"name":"Owner","email":"sashakolhatkar28@gmail.com","password":"<a strong password>","owner_setup_token":"<the revealed token>"}'
+   ```
 4. Confirm `https://<your-service>.onrender.com/api/health` returns `{"status":"ok","app":"DAYFLOW"}`.
 
 Render supplies `DATABASE_URL` as `postgres://...`; the backend normalises it to `postgresql+psycopg://`. The free plan sleeps idle services, so the first request after a pause may take a few seconds.
