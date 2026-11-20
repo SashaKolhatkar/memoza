@@ -6,10 +6,12 @@ const TOKEN_KEY = 'dayflow:token'
 
 let mode = 'local'
 let token = localStorage.getItem(TOKEN_KEY)
+let serverAvailable = false
 
 export const apiState = {
   get mode() { return mode },
   get token() { return token },
+  get serverAvailable() { return serverAvailable },
 }
 
 function query(params = {}) {
@@ -60,6 +62,7 @@ export const api = {
       const response = await fetch(`${BASE}/health`, { signal: controller.signal })
       clearTimeout(timer)
       if (!response.ok) throw new Error('unhealthy')
+      serverAvailable = true
       mode = 'server'
       if (token) {
         try {
@@ -70,19 +73,24 @@ export const api = {
           localStorage.removeItem(TOKEN_KEY)
         }
       }
-      const session = setSession(await request('POST', '/auth/demo'))
+      // No saved session: use an empty private workspace instead of silently
+      // entering a demo account. The user can add their own data, or sign in
+      // or create an account from Settings at any time.
+      mode = 'local'
+      const session = await local.auth.own()
       return { mode, user: session.user }
     } catch {
+      serverAvailable = false
       mode = 'local'
-      const session = await local.auth.demo()
+      const session = await local.auth.own()
       return { mode, user: session.user }
     }
   },
 
   auth: {
-    demo: () => (mode === 'server' ? request('POST', '/auth/demo').then(setSession) : local.auth.demo()),
-    login: (payload) => (mode === 'server' ? request('POST', '/auth/login', { body: payload }).then(setSession) : local.auth.login(payload)),
-    register: (payload) => (mode === 'server' ? request('POST', '/auth/register', { body: payload }).then(setSession) : local.auth.register(payload)),
+    demo: () => (serverAvailable ? request('POST', '/auth/demo').then((result) => { mode = 'server'; return setSession(result) }) : local.auth.demo()),
+    login: (payload) => (serverAvailable ? request('POST', '/auth/login', { body: payload }).then((result) => { mode = 'server'; return setSession(result) }) : local.auth.login(payload)),
+    register: (payload) => (serverAvailable ? request('POST', '/auth/register', { body: payload }).then((result) => { mode = 'server'; return setSession(result) }) : local.auth.register(payload)),
     me: () => (mode === 'server' ? request('GET', '/auth/me') : local.auth.me()),
     prefs: (preferences) => (mode === 'server' ? request('PATCH', '/auth/me/preferences', { body: { preferences } }) : local.auth.prefs(preferences)),
     exportData: () => (mode === 'server' ? request('GET', '/auth/export') : local.auth.exportData()),

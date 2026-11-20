@@ -31,6 +31,7 @@ export function AppProvider({ children }) {
   }, [])
 
   const refresh = useCallback(async () => {
+    setMode(apiState.mode)
     const [taskList, dumpList, routineList, logList, eventList, sessionList] = await Promise.all([
       api.tasks.list(), api.braindumps.list(), api.routines.list(), api.routines.logs(), api.events.list(), api.sessions.list(),
     ])

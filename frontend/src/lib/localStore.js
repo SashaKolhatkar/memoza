@@ -116,16 +116,28 @@ function seed() {
   return { user, tasks, braindumps, routines, routineLogs, events, sessions, blocks: [], taskEvents: [] }
 }
 
+function seedEmpty() {
+  const user = {
+    id: 'local-user',
+    email: '',
+    name: '',
+    is_demo: false,
+    preferences: { ...DEFAULT_PREFERENCES },
+    created_at: new Date().toISOString(),
+  }
+  return { user, tasks: [], braindumps: [], routines: [], routineLogs: [], events: [], sessions: [], blocks: [], taskEvents: [] }
+}
+
 let data
 function load() {
   if (data) return data
   try {
     const raw = localStorage.getItem(KEY)
-    data = raw ? JSON.parse(raw) : seed()
+    data = raw ? JSON.parse(raw) : seedEmpty()
   } catch {
-    data = seed()
+    data = seedEmpty()
   }
-  if (!data.user) data = seed()
+  if (!data.user) data = seedEmpty()
   return data
 }
 function save() {
@@ -249,7 +261,8 @@ function localSchedule({ day, energy, available_start, available_end, buffer_min
 export const local = {
   mode: 'local',
   auth: {
-    async demo() { load(); return { access_token: 'local', user: data.user } },
+    async own() { load(); return { access_token: 'local', user: data.user } },
+    async demo() { data = seed(); save(); return { access_token: 'local', user: data.user } },
     async register({ name, email }) {
       load(); data.user = { ...data.user, name, email, is_demo: false }; save()
       return { access_token: 'local', user: data.user }

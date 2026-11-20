@@ -169,7 +169,7 @@ function Topbar() {
         </details>
         <div className="brand-mark" style={{ width: 34, height: 34, borderRadius: 11 }}>
           <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--lavender-deep)' }}>
-            {(user?.name || 'D').slice(0, 1).toUpperCase()}
+            {(user?.name || 'M').slice(0, 1).toUpperCase()}
           </span>
         </div>
       </div>

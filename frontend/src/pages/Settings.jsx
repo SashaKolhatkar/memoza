@@ -125,8 +125,8 @@ export default function Settings() {
           <div className="brand-mark"><UserRound size={18} color="var(--lavender-deep)" /></div>
           <div style={{ flex: 1 }}>
             <div className="eyebrow">Account</div>
-            <h2 style={{ margin: 0 }}>{user?.name}</h2>
-            <div className="small muted">{user?.email} · {mode === 'server' ? (user?.is_demo ? 'Demo account with sample data' : 'Private account') : 'Local browser workspace'}</div>
+            <h2 style={{ margin: 0 }}>{user?.name || 'Your workspace'}</h2>
+            <div className="small muted">{user?.email || 'Not signed in'} · {mode === 'server' ? (user?.is_demo ? 'Demo account with sample data' : 'Private account') : 'Local browser workspace'}</div>
           </div>
           <button className="btn btn-ghost" onClick={() => { setForm({ name: '', email: '', password: '' }); setAuthModal('login') }}>Sign in</button>
           <button className="btn btn-soft" onClick={() => { setForm({ name: '', email: '', password: '' }); setAuthModal('register') }}>Create account</button>
@@ -157,14 +157,14 @@ export default function Settings() {
           <section className="panel">
             <div className="row-wrap">
               <button className="btn btn-ghost" onClick={download}><Download size={15} /> Download my data (JSON)</button>
-              {mode === 'local' && <button className="btn btn-ghost" onClick={async () => { resetLocal(); await refresh(); toast('Local workspace reset to clearly labelled demo data.', 'gentle') }}><RefreshCcw size={15} /> Reset local workspace</button>}
+              {mode === 'local' && <button className="btn btn-ghost" onClick={async () => { resetLocal(); await refresh(); toast('Local workspace reset to an empty workspace.', 'gentle') }}><RefreshCcw size={15} /> Reset local workspace</button>}
               <button className="btn btn-ghost" onClick={async () => { clearBuddyMemory(); api.auth.logout(); window.location.href = '/' }}><LogOut size={15} /> Sign out</button>
               <button className="btn btn-ghost" style={{ color: 'var(--peach-deep)' }} onClick={() => setConfirmDelete(true)}><Trash2 size={15} /> Delete my account and data</button>
             </div>
           </section>
           <section className="panel flat">
             <div className="row"><ShieldCheck size={19} color="var(--sage-deep)" /><strong className="small">A note about privacy</strong></div>
-            <p className="small" style={{ margin: '7px 0 0' }}>Memoza is a planning tool, not a medical service. It does not diagnose, treat, or make clinical predictions. Demo content is always labelled as sample data.</p>
+            <p className="small" style={{ margin: '7px 0 0' }}>Memoza is a planning tool, not a medical service. It does not diagnose, treat, or make clinical predictions. Sample content, when used, is always labelled as demo data.</p>
           </section>
         </div>
       </details>

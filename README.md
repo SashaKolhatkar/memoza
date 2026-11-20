@@ -109,9 +109,11 @@ The API is now at `http://127.0.0.1:8010`. Interactive docs are at `/docs`; heal
 
 Memoza uses port **8010** so it does not collide with other local services that commonly occupy port 8000. If you need a different port, set `VITE_API_TARGET` in `frontend/.env` to match.
 
-On startup, a clearly labelled demo workspace is created if it does not exist:
+For local backend testing, a clearly labelled demo workspace is seeded when `DEMO_SEED_ON_STARTUP` is enabled:
 - Email: `demo@memoza.local`
 - Password: `demo1234`
+
+The app does not enter this demo workspace automatically. You start with an empty workspace of your own, and can sign in or create an account from Settings at any time.
 
 ### 2. Frontend
 
@@ -123,7 +125,7 @@ npm run dev
 
 Open `http://127.0.0.1:5174`. The Vite dev server proxies `/api` to the backend. Port 5174 is used because 5173 is often occupied by another service; use `127.0.0.1` so `localhost` cannot resolve to a different IPv6 listener.
 
-If the backend is not running, the frontend works **offline** and automatically switches to **Local workspace · saved on this device** using a complete `localStorage` implementation. All tasks, scheduling, focus sessions, and Restart actions remain functional. Demo content is labelled in both modes.
+If the backend is not running, the frontend works **offline** and automatically switches to **Local workspace · saved on this device** using a complete `localStorage` implementation. New local workspaces start empty; all tasks, scheduling, focus sessions, and Restart actions remain functional with your own input. Any demo content you explicitly load is labelled as sample data.
 
 ### Production build
 
