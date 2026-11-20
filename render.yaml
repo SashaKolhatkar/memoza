@@ -28,13 +28,12 @@ services:
         value: "false"
       - key: MODEL_PATH
         value: /tmp/duration_model.joblib
-      # Replace with your real Vercel URL and Render service hostname after deploy.
       - key: CORS_ORIGINS
-        value: https://dayflow.vercel.app
+        value: https://dayflow-nd9i5uk60-sashakolhatkar.vercel.app
       - key: ALLOWED_HOSTS
-        value: dayflow-api.onrender.com
+        value: dayflow-api-f1lb.onrender.com
       - key: FRONTEND_URL
-        value: https://dayflow.vercel.app
+        value: https://dayflow-nd9i5uk60-sashakolhatkar.vercel.app
       # Google Calendar is optional. Set all three to enable read-only import.
       # GOOGLE_CLIENT_ID: set in dashboard
       # GOOGLE_CLIENT_SECRET: set in dashboard
