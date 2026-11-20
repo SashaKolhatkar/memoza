@@ -1,10 +1,10 @@
-# Render Blueprint for the DAYFLOW API.
+# Render Blueprint for the Memoza API.
 # In Render: New > Blueprint > point at this repository.
 # The React frontend is deployed separately on Vercel (see frontend/vercel.json).
 
 services:
   - type: web
-    name: dayflow-api
+    name: memoza-api
     runtime: python
     region: oregon
     plan: free
@@ -31,13 +31,13 @@ services:
       - key: CORS_ORIGINS
         value: https://memoza-phi-hazel.vercel.app
       - key: ALLOWED_HOSTS
-        value: dayflow-api-f1lb.onrender.com
+        value: memoza-api.onrender.com
       - key: FRONTEND_URL
         value: https://memoza-phi-hazel.vercel.app
       # Google Calendar is optional. Set all three to enable read-only import.
       # GOOGLE_CLIENT_ID: set in dashboard
       # GOOGLE_CLIENT_SECRET: set in dashboard
-      # GOOGLE_REDIRECT_URI: https://dayflow-api.onrender.com/api/google/callback
+      # GOOGLE_REDIRECT_URI: https://memoza-api.onrender.com/api/google/callback
       - key: DATABASE_URL
         fromDatabase:
           name: dayflow-db

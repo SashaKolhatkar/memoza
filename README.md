@@ -6,7 +6,7 @@ A gentle, adaptive planning workspace for real days. Memoza helps you choose one
 
 ## Live deployment
 - Frontend: https://memoza-phi-hazel.vercel.app
-- API health: https://dayflow-api-f1lb.onrender.com/api/health
+- API health: https://memoza-api.onrender.com/api/health
 - Source: https://github.com/SashaKolhatkar/memoza
 
 ## What is included
@@ -155,7 +155,7 @@ To point a different local copy at your own repo instead, use `git remote set-ur
 ### 2. Render (API + database)
 
 1. **New → Blueprint** and select the repo. `render.yaml` creates the API service and a free PostgreSQL database.
-2. In the service **Environment** tab, set `CORS_ORIGINS` and `FRONTEND_URL` to your real Vercel URL, e.g. `https://dayflow-abc123.vercel.app`. `ALLOWED_HOSTS` defaults to `dayflow-api.onrender.com`; Render's own `RENDER_EXTERNAL_HOSTNAME` is also allowed automatically.
+2. In the service **Environment** tab, set `CORS_ORIGINS` and `FRONTEND_URL` to your real Vercel URL, e.g. `https://memoza-abc123.vercel.app`. `ALLOWED_HOSTS` defaults to `memoza-api.onrender.com`; Render's own `RENDER_EXTERNAL_HOSTNAME` is also allowed automatically.
 3. Reveal `SECRET_KEY`, `TRAFFIC_SALT`, and `OWNER_SETUP_TOKEN` from the dashboard and store them safely. `OWNER_SETUP_TOKEN` is needed once to create the reserved owner account. The normal Settings form intentionally has no owner-token field; create the owner account once with the API:
    ```bash
    curl -X POST https://<your-service>.onrender.com/api/auth/register \
