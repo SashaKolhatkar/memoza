@@ -220,8 +220,11 @@ export default function ChibiChat() {
     dragRef.current = {
       startX: event.clientX, startY: event.clientY,
       offsetX: offset.x, offsetY: offset.y, moved: false,
+      pointerId: event.pointerId, target: event.currentTarget,
     }
-    try { event.currentTarget.setPointerCapture?.(event.pointerId) } catch { /* synthetic events do not capture */ }
+    // Do not capture on pointerdown: capturing immediately retargets pointerup
+    // and suppresses the button's click on desktop. Capture only once the
+    // pointer has actually moved far enough to count as a drag.
   }
 
   const moveDrag = (event) => {
@@ -229,8 +232,11 @@ export default function ChibiChat() {
     if (!drag) return
     const dx = event.clientX - drag.startX
     const dy = event.clientY - drag.startY
-    if (Math.abs(dx) + Math.abs(dy) > 5) drag.moved = true
-    if (!drag.moved) return
+    if (!drag.moved) {
+      if (Math.abs(dx) + Math.abs(dy) <= 5) return
+      drag.moved = true
+      try { drag.target.setPointerCapture?.(drag.pointerId) } catch { /* synthetic events do not capture */ }
+    }
     const maxLeft = Math.max(0, window.innerWidth - 150)
     const maxUp = Math.max(0, window.innerHeight - 150)
     setOffset({
@@ -240,7 +246,10 @@ export default function ChibiChat() {
   }
 
   const endDrag = () => {
-    if (dragRef.current?.moved) {
+    const drag = dragRef.current
+    if (!drag) return
+    if (drag.moved) {
+      try { drag.target.releasePointerCapture?.(drag.pointerId) } catch { /* synthetic events do not capture */ }
       draggedRef.current = true
       setTimeout(() => { draggedRef.current = false }, 0)
     }
@@ -330,10 +339,6 @@ export default function ChibiChat() {
         <button
           className="buddy-fab"
           onClick={openBuddy}
-          onPointerDown={startDrag}
-          onPointerMove={moveDrag}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
           aria-label="Open your Memoza buddy. Drag to move."
         >
           <ChibiCompanion mood={mood} color={buddyColor} character={buddyCharacter} name={friendName} size={46} />
@@ -344,10 +349,6 @@ export default function ChibiChat() {
         <section className="buddy-panel" role="dialog" aria-label={`Chat with ${friend.name}`}>
           <header
             className="buddy-head"
-            onPointerDown={startDrag}
-            onPointerMove={moveDrag}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
             title="Drag to move Buddy"
           >
             <ChibiCompanion mood={mood} color={buddyColor} character={buddyCharacter} name={friendName} size={52} />
