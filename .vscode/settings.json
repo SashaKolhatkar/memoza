@@ -1,0 +1,18 @@
+{
+  "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true
+  },
+  "files.watcherExclude": {
+    "**/frontend/node_modules/**": true,
+    "**/frontend/dist/**": true
+  },
+  "search.exclude": {
+    "**/frontend/dist/**": true,
+    "**/frontend/node_modules/**": true,
+    "**/duration_model.joblib": true,
+    "**/dayflow.db": true
+  }
+}

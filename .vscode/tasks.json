@@ -1,0 +1,54 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "env": {
+      "PATH": "${workspaceFolder}/tools/node-v26.13.1-win-x64;${env:PATH}"
+    }
+  },
+  "tasks": [
+    {
+      "label": "Dayflow: API",
+      "type": "shell",
+      "command": "python -m uvicorn app.main:app --host 127.0.0.1 --port 8010",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "group": "dayflow" }
+    },
+    {
+      "label": "Dayflow: Frontend",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "group": "dayflow" }
+    },
+    {
+      "label": "Dayflow: Dev (both)",
+      "dependsOn": ["Dayflow: API", "Dayflow: Frontend"],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    },
+    {
+      "label": "Dayflow: Build frontend",
+      "type": "shell",
+      "command": "npm run build",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dayflow: Smoke test",
+      "type": "shell",
+      "command": "python tests/smoke.py",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dayflow: Verify all",
+      "dependsOn": ["Dayflow: Build frontend", "Dayflow: Smoke test"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}

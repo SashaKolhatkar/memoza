@@ -1,0 +1,51 @@
+# Render Blueprint for the DAYFLOW API.
+# In Render: New > Blueprint > point at this repository.
+# The React frontend is deployed separately on Vercel (see frontend/vercel.json).
+
+services:
+  - type: web
+    name: dayflow-api
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      # Render generates strong random values; you can reveal them in the dashboard.
+      # OWNER_SETUP_TOKEN is needed once, to create the reserved owner account.
+      - key: SECRET_KEY
+        generateValue: true
+      - key: TRAFFIC_SALT
+        generateValue: true
+      - key: OWNER_SETUP_TOKEN
+        generateValue: true
+      - key: DEMO_SEED_ON_STARTUP
+        value: "false"
+      - key: MODEL_PATH
+        value: /tmp/duration_model.joblib
+      # Replace with your real Vercel URL and Render service hostname after deploy.
+      - key: CORS_ORIGINS
+        value: https://dayflow.vercel.app
+      - key: ALLOWED_HOSTS
+        value: dayflow-api.onrender.com
+      - key: FRONTEND_URL
+        value: https://dayflow.vercel.app
+      # Google Calendar is optional. Set all three to enable read-only import.
+      # GOOGLE_CLIENT_ID: set in dashboard
+      # GOOGLE_CLIENT_SECRET: set in dashboard
+      # GOOGLE_REDIRECT_URI: https://dayflow-api.onrender.com/api/google/callback
+      - key: DATABASE_URL
+        fromDatabase:
+          name: dayflow-db
+          property: connectionString
+
+databases:
+  - name: dayflow-db
+    plan: free
+    databaseName: dayflow
+    user: dayflow
