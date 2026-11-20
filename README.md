@@ -9,6 +9,22 @@ A gentle, adaptive planning workspace for real days. Memoza helps you choose one
 - API health: https://memoza-api.onrender.com/api/health
 - Source: https://github.com/SashaKolhatkar/memoza
 
+## Screenshots
+
+These show the personal workspace with tasks added by the user — no demo account is required.
+
+| Today | Tasks |
+| :---: | :---: |
+| <img src="docs/screenshots/today.png" alt="Memoza Today dashboard" width="100%"> | <img src="docs/screenshots/tasks.png" alt="Memoza task list" width="100%"> |
+
+| Focus Room | Restart |
+| :---: | :---: |
+| <img src="docs/screenshots/focus.png" alt="Memoza Focus Room" width="100%"> | <img src="docs/screenshots/restart.png" alt="Memoza Restart screen" width="100%"> |
+
+| Buddy chat |
+| :---: |
+| <img src="docs/screenshots/buddy.png" alt="Memoza Buddy chat" width="100%"> |
+
 ## What is included
 
 ### Product philosophy
