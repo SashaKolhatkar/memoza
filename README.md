@@ -136,17 +136,16 @@ The React app is a static Vite build on Vercel; the FastAPI service runs on Rend
 
 ### 1. Push the project to GitHub
 
-This folder is not yet a Git repository. From `C:\Users\LENOVO\dayflow`:
+The project is already pushed to `https://github.com/SashaKolhatkar/dayflow` (public, branch `main`). To get it on another machine:
 
 ```bash
-git init
-git add .
-git commit -m "DAYFLOW"
-git remote add origin https://github.com/<you>/<repo>.git
-git push -u origin main
+git clone https://github.com/SashaKolhatkar/dayflow.git
+cd dayflow
 ```
 
-`.gitignore` already excludes `.env` files, the SQLite database, trained models, `node_modules`, `dist`, and local `tools/`. Never commit real secrets.
+To point a different local copy at your own repo instead, use `git remote set-url origin <your-url>` and `git push -u origin main`.
+
+`.gitignore` excludes `.env` files, the SQLite database, trained models, `node_modules`, `dist`, and local `tools/`. Never commit real secrets.
 
 ### 2. Render (API + database)
 
