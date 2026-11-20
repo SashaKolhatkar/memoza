@@ -4,6 +4,11 @@ A gentle, adaptive planning workspace for real days. DAYFLOW helps you choose on
 
 > DAYFLOW is a productivity and planning tool. It is not a medical, diagnostic, or clinical service. It does not make claims about your health or behaviour.
 
+## Live deployment
+- Frontend: https://dayflow-phi-hazel.vercel.app
+- API health: https://dayflow-api-f1lb.onrender.com/api/health
+- Source: https://github.com/SashaKolhatkar/dayflow
+
 ## What is included
 
 ### Product philosophy
