@@ -203,7 +203,6 @@ Important backend settings:
 - `MODEL_PATH` — where a trained duration model is stored.
 - `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` — optional Google OAuth credentials. With all three set, **Calendar → Google Calendar → Connect** appears. The redirect URI must be registered with Google and default to `http://127.0.0.1:8010/api/google/callback`. Only `calendar.readonly` is requested; imported events are copies in Memoza and your Google Calendar is never modified. Tokens are encrypted in the local database and deleted/revoked with the account; OAuth uses PKCE.
 - `FRONTEND_URL` — where the OAuth callback sends you afterwards (default `http://127.0.0.1:5174`).
-- `OWNER_EMAIL` — the reserved account email for the owner traffic dashboard (default `sashakolhatkar28@gmail.com`).
 - `OWNER_SETUP_TOKEN` — a long random token required to register that reserved email. Set it in the backend environment before creating the owner account; ordinary users cannot claim the owner email.
 - `TRAFFIC_SALT` — required and checked for a long random value when `ENVIRONMENT` is not `local`; it hashes visitor/session tokens before storage.
 - `TRAFFIC_RETENTION_DAYS` — traffic rows older than this are pruned automatically (default 180).
