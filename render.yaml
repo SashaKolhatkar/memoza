@@ -29,11 +29,11 @@ services:
       - key: MODEL_PATH
         value: /tmp/duration_model.joblib
       - key: CORS_ORIGINS
-        value: https://dayflow-nd9i5uk60-sashakolhatkar.vercel.app
+        value: https://dayflow-phi-hazel.vercel.app
       - key: ALLOWED_HOSTS
         value: dayflow-api-f1lb.onrender.com
       - key: FRONTEND_URL
-        value: https://dayflow-nd9i5uk60-sashakolhatkar.vercel.app
+        value: https://dayflow-phi-hazel.vercel.app
       # Google Calendar is optional. Set all three to enable read-only import.
       # GOOGLE_CLIENT_ID: set in dashboard
       # GOOGLE_CLIENT_SECRET: set in dashboard
