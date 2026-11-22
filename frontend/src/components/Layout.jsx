@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   Activity, CalendarDays, Clock3, Contrast, Heart, LayoutDashboard, LayoutGrid, Lightbulb, ListTodo,
   Moon, NotebookPen, Pause, Play, Repeat2, RotateCcw, Settings as SettingsIcon,
@@ -56,21 +56,17 @@ export function RestartButton({ compact = false, onClick }) {
 
 function Sidebar({ onResizeStart }) {
   const location = useLocation()
-  const navigate = useNavigate()
   const { tasks, user } = useApp()
   const openCount = tasks.filter((task) => task.status === 'today').length
   const link = (item) => {
     const Icon = item.icon
     const active = isActive(item.to, location.pathname)
     return (
-      <a key={item.to} href={item.to} className={cx('nav-item', active && 'active')} onClick={(event) => {
-        event.preventDefault()
-        navigate(item.to)
-      }}>
+      <Link key={item.to} to={item.to} className={cx('nav-item', active && 'active')}>
         <Icon size={17} strokeWidth={active ? 2.3 : 1.9} />
         <span>{item.label}</span>
         {item.to === '/tasks' && openCount > 0 && <span className="nav-badge">{openCount}</span>}
-      </a>
+      </Link>
     )
   }
   return (
@@ -104,20 +100,16 @@ function Sidebar({ onResizeStart }) {
 
 function MobileNav() {
   const location = useLocation()
-  const navigate = useNavigate()
   return (
     <nav className="mobile-nav">
       {MOBILE_NAV.map((item) => {
         const Icon = item.icon
         const active = isActive(item.to, location.pathname)
         return (
-          <a key={item.to} href={item.to} className={cx(active && 'active')} onClick={(event) => {
-            event.preventDefault()
-            navigate(item.to)
-          }}>
+          <Link key={item.to} to={item.to} className={cx(active && 'active')}>
             <Icon size={19} />
             <span>{item.label}</span>
-          </a>
+          </Link>
         )
       })}
     </nav>
@@ -126,7 +118,6 @@ function MobileNav() {
 
 function Topbar() {
   const location = useLocation()
-  const navigate = useNavigate()
   const { theme, setPreference, user, mode } = useApp()
   const moreItems = moreItemsFor(user)
   const current = [...NAV, ...moreItems].find((item) => isActive(item.to, location.pathname))
@@ -157,12 +148,9 @@ function Topbar() {
             {moreItems.map((item) => {
               const Icon = item.icon
               return (
-                <a key={item.to} href={item.to} onClick={(event) => {
-                  event.preventDefault()
-                  navigate(item.to)
-                }}>
+                <Link key={item.to} to={item.to}>
                   <Icon size={15} /> {item.label}
-                </a>
+                </Link>
               )
             })}
           </div>

@@ -5,7 +5,8 @@ A gentle, adaptive planning workspace for real days. Memoza helps you choose one
 > Memoza is a productivity and planning tool. It is not a medical, diagnostic, or clinical service. It does not make claims about your health or behaviour.
 
 ## Live deployment
-- Frontend: https://memoza-phi-hazel.vercel.app
+- Frontend (Vercel): https://memoza-phi-hazel.vercel.app
+- Frontend (GitHub Pages): https://sashakolhatkar.github.io/memoza/
 - API health: https://memoza-api.onrender.com/api/health
 - Source: https://github.com/SashaKolhatkar/memoza
 
@@ -153,9 +154,9 @@ npm run preview
 
 Serve the backend separately and set `VITE_API_BASE` to its absolute API URL if you are not using the dev proxy.
 
-## Deploy (Vercel + Render)
+## Deploy (Vercel / GitHub Pages + Render)
 
-The React app is a static Vite build on Vercel; the FastAPI service runs on Render. Each reads its settings from environment variables.
+The React app is a static Vite build on Vercel and GitHub Pages; the FastAPI service runs on Render. Each reads its settings from environment variables.
 
 ### 1. Push the project to GitHub
 
@@ -174,7 +175,7 @@ To point a different local copy at your own repo instead, use `git remote set-ur
 
 1. **New → Blueprint** and select the repo. `render.yaml` creates a free PostgreSQL database. The existing service is named `dayflow-db` to preserve the database; Render does not allow renaming blueprint-managed services.
 2. **New → Web Service** from the same repo to create the API. Use Python 3, branch `main`, build command `pip install -r backend/requirements.txt`, start command `cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT`, and health check path `/api/health`. The deployed service is named `memoza-api`; it is managed separately from the Blueprint, so do not re-add it to `render.yaml`.
-3. In the API service **Environment** tab, set `CORS_ORIGINS` and `FRONTEND_URL` to your real Vercel URL, e.g. `https://memoza-abc123.vercel.app`. Also set `ENVIRONMENT=production`, `PYTHON_VERSION=3.11.9`, `DEMO_SEED_ON_STARTUP=false`, `MODEL_PATH=/tmp/duration_model.joblib`, and `DATABASE_URL` from the Blueprint database. `ALLOWED_HOSTS` is optional because Render's own `RENDER_EXTERNAL_HOSTNAME` is allowed automatically.
+3. In the API service **Environment** tab, set `CORS_ORIGINS` to your real frontend origins, e.g. `https://memoza-phi-hazel.vercel.app,https://sashakolhatkar.github.io`, and set `FRONTEND_URL` to your main Vercel URL. Also set `ENVIRONMENT=production`, `PYTHON_VERSION=3.11.9`, `DEMO_SEED_ON_STARTUP=false`, `MODEL_PATH=/tmp/duration_model.joblib`, and `DATABASE_URL` from the Blueprint database. `ALLOWED_HOSTS` is optional because Render's own `RENDER_EXTERNAL_HOSTNAME` is allowed automatically.
 4. Generate strong values for `SECRET_KEY`, `TRAFFIC_SALT`, and `OWNER_SETUP_TOKEN` (Render's **Generate** button is fine), reveal them from the dashboard, and store them safely. `OWNER_SETUP_TOKEN` is needed once to create the reserved owner account. The normal Settings form intentionally has no owner-token field; create the owner account once with the API:
    ```bash
    curl -X POST https://<your-service>.onrender.com/api/auth/register \
@@ -193,11 +194,17 @@ Render supplies `DATABASE_URL` as `postgres://...`; the backend normalises it to
 4. Add the build-time variable `VITE_API_BASE = https://<your-service>.onrender.com/api`.
 5. Deploy. `frontend/vercel.json` rewrites client routes to `index.html`, so refreshing `/focus` or `/progress` works.
 
-### 4. Google Calendar (optional)
+### 4. GitHub Pages (second frontend)
+
+The `.github/workflows/deploy-pages.yml` workflow builds the same frontend with `VITE_BASE_PATH=/memoza/` and `VITE_API_BASE=https://memoza-api.onrender.com/api`, copies `index.html` to `404.html` for SPA route refreshes, and publishes `frontend/dist` to Pages. It runs on every push to `main` and can also be started from **Actions → Deploy to GitHub Pages → Run workflow**.
+
+The live URL is https://sashakolhatkar.github.io/memoza/. GitHub Pages can only call the API if the Render `CORS_ORIGINS` value includes `https://sashakolhatkar.github.io` (see step 3). Pages is a static mirror of the Vercel frontend; account data still lives in the same Render API and in the browser's local workspace.
+
+### 5. Google Calendar (optional)
 
 Add `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` (`https://<your-service>.onrender.com/api/google/callback`) to the Render environment, and register that exact redirect URI with Google. Set `FRONTEND_URL` to your Vercel URL so the callback returns to the app.
 
-### 5. VS Code
+### 6. VS Code
 
 Open this folder in VS Code. Use **Terminal → Run Task…**:
 - `Memoza: Dev (both)` — API + frontend locally
@@ -215,7 +222,7 @@ Important backend settings:
 - `DATABASE_URL` — SQLite by default; use a PostgreSQL URL in production.
 - `SECRET_KEY` — required and checked for a long random value when `ENVIRONMENT` is not `local`.
 - `ACCESS_TOKEN_EXPIRE_MINUTES` — session lifetime (default 720 minutes / 12 hours).
-- `CORS_ORIGINS` — comma-separated allowed origins; wildcard is rejected because credentialed requests are enabled.
+- `CORS_ORIGINS` — comma-separated allowed frontend origins (Vercel and GitHub Pages); wildcard is rejected because credentialed requests are enabled.
 - `ALLOWED_HOSTS` — comma-separated host names accepted by the API; set this for your deployment domain.
 - `DEMO_SEED_ON_STARTUP` — set to `false` to disable automatic demo data.
 - `MODEL_PATH` — where a trained duration model is stored.

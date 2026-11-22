@@ -13,6 +13,7 @@ export default function Settings() {
   const [authModal, setAuthModal] = useState(null)
   const [form, setForm] = useState({ name: '', email: '', password: '' })
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const homeHref = import.meta.env.BASE_URL
 
   const clearBuddyMemory = () => {
     try {
@@ -158,7 +159,7 @@ export default function Settings() {
             <div className="row-wrap">
               <button className="btn btn-ghost" onClick={download}><Download size={15} /> Download my data (JSON)</button>
               {mode === 'local' && <button className="btn btn-ghost" onClick={async () => { resetLocal(); await refresh(); toast('Local workspace reset to an empty workspace.', 'gentle') }}><RefreshCcw size={15} /> Reset local workspace</button>}
-              <button className="btn btn-ghost" onClick={async () => { clearBuddyMemory(); api.auth.logout(); window.location.href = '/' }}><LogOut size={15} /> Sign out</button>
+              <button className="btn btn-ghost" onClick={async () => { clearBuddyMemory(); api.auth.logout(); window.location.assign(homeHref) }}><LogOut size={15} /> Sign out</button>
               <button className="btn btn-ghost" style={{ color: 'var(--peach-deep)' }} onClick={() => setConfirmDelete(true)}><Trash2 size={15} /> Delete my account and data</button>
             </div>
           </section>
@@ -188,7 +189,7 @@ export default function Settings() {
         title="Delete everything?"
         subtitle="This removes your account and all personal data. It cannot be undone."
         footer={<><button className="btn btn-ghost" onClick={() => setConfirmDelete(false)}>Keep my data</button><button className="btn btn-peach" onClick={async () => {
-          try { await api.auth.deleteAccount(); clearBuddyMemory(); window.location.href = '/' } catch (error) { toast(error.message, 'warn') }
+          try { await api.auth.deleteAccount(); clearBuddyMemory(); window.location.assign(homeHref) } catch (error) { toast(error.message, 'warn') }
         }}>Yes, delete permanently</button></>}
       >
         <div className="panel flat tint-peach" style={{ padding: 14 }}>
