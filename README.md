@@ -198,7 +198,7 @@ Render supplies `DATABASE_URL` as `postgres://...`; the backend normalises it to
 
 The `.github/workflows/deploy-pages.yml` workflow builds the same frontend with `VITE_BASE_PATH=/memoza/` and `VITE_API_BASE=https://memoza-api.onrender.com/api`, copies `index.html` to `404.html` for SPA route refreshes, and publishes `frontend/dist` to Pages. It runs on every push to `main` and can also be started from **Actions → Deploy to GitHub Pages → Run workflow**.
 
-The live URL is https://sashakolhatkar.github.io/memoza/. GitHub Pages can only call the API if the Render `CORS_ORIGINS` value includes `https://sashakolhatkar.github.io` (see step 3). Pages is a static mirror of the Vercel frontend; account data still lives in the same Render API and in the browser's local workspace.
+The live URL is https://sashakolhatkar.github.io/memoza/. In **Settings → Pages**, the repository's **Source** must be **GitHub Actions** (a clean `gh-pages` branch is also published as a fallback). GitHub Pages can only call the API if the Render `CORS_ORIGINS` value includes `https://sashakolhatkar.github.io` (see step 3). Pages is a static mirror of the Vercel frontend; account data still lives in the same Render API and in the browser's local workspace.
 
 ### 5. Google Calendar (optional)
 
